@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+<div class="page-header">
+	<div class="center-block">
+		{% if user.about_me_html %}
+		    {{ user.about_me_html | safe }}
+		{% else %}
+		    {{ user.about_me }}
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
