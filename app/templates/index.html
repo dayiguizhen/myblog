@@ -13,9 +13,9 @@
                 {% if post.body_html %}
                     <a href="{{ url_for('.post',id=post.id) }}"><h2 >{{ post.title }}</h2></a>
                         <div class="post-date">{{ moment(post.timestamp).format('LLL') }}</div>
-                    {{ post.body_html | safe }}
+                    {{ post.readmore_html | safe }}
                 {% else %}
-                    {{ post.body }}
+                    {{ post.readmore }}
                 {% endif %}
             </div>
             <div class="post-footer">

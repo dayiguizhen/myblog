@@ -24,7 +24,7 @@ def index(classify):
 def edit_post():
     form = PostForm();
     if form.validate_on_submit():
-        post = Post(body=form.body.data,author=current_user._get_current_object(),classify=form.classify.data,title=form.title.data);
+        post = Post(body=form.body.data,author=current_user._get_current_object(),classify=form.classify.data,title=form.title.data,readmore=form.readmore.data);
         db.session.add(post);
     return render_template('edit_post.html',form=form)
 

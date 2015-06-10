@@ -40,13 +40,20 @@ class Post(db.Model):
     author_id = db.Column(db.Integer,db.ForeignKey('users.id'));
     classify = db.Column(db.String(64));
     body_html = db.Column(db.Text);
+    readmore = db.Column(db.Text);
+    readmore_html = db.Column(db.Text);
     title = db.Column(db.String(64));
 
     @staticmethod
     def on_change_body(target,value,oldvalue,initiator):
         allowed_tags = ['a','abbr','acronym','b','blockquote','code','em','i','li','ol','pre','strong','ul','h1','h2','h3','h4','p'];
         target.body_html = bleach.linkify(bleach.clean(markdown(value,output_format='html'),tags=allowed_tags,strip=True));
+
+    def on_change_readmore(target,value,oldvalue,initiator):
+        allowed_tags = ['a','abbr','acronym','b','blockquote','code','em','i','li','ol','pre','strong','ul','h1','h2','h3','h4','p'];
+        target.readmore_html = bleach.linkify(bleach.clean(markdown(value,output_format='html'),tags=allowed_tags,strip=True));
 db.event.listen(Post.body,'set',Post.on_change_body)
+db.event.listen(Post.readmore,'set',Post.on_change_readmore)
 
 
 @login_manager.user_loader
