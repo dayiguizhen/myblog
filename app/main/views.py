@@ -6,6 +6,11 @@ from . import main
 from .. import db
 
 
+@main.route('/',methods=['GET','POST'])
+def index1():
+    #return redirect('http://dayiguizhen.xyz/index/all');
+    return redirect(url_for('main.index',classify='all'))
+
 @main.route('/index/<path:classify>',methods=['GET','POST'])
 def index(classify):
     if classify == 'all':
@@ -17,7 +22,7 @@ def index(classify):
         pagination = Post.query.filter_by(classify=classify).order_by(Post.timestamp.desc()).paginate(page,per_page=10,error_out=False)
         posts = pagination.items
     print pagination;
-    return render_template('index.html',posts=posts,pagination=pagination);
+    return render_template('index.html',posts=posts,pagination=pagination,classify=classify);
 
 @main.route('/edit-post',methods=['GET','POST'])
 @login_required
